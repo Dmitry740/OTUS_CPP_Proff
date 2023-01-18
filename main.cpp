@@ -18,6 +18,7 @@ int main(int argc, char const *argv[]) {
       std::cerr << "Error: faild to open file" << argv[1] << std::endl;
       return EXIT_FAILURE;
     }
+
     run(input);
   }
 
