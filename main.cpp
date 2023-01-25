@@ -5,7 +5,9 @@
 
 int main(int argc, char const *argv[]) {
   if (argc <= 1) {
-    std::cerr << "Error: program requres a parametr" << std::endl;
+    std::cerr
+        << "Error: program requres a file like filename.tsv or filename.txt"
+        << std::endl;
     return EXIT_FAILURE;
   }
   if (argc > 2) {
