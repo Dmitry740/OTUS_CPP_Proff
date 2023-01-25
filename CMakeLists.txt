@@ -11,20 +11,28 @@ add_executable(tests tests.cpp ip_filter.cpp)
 find_package(GTest CONFIG REQUIRED)
 target_link_libraries(tests PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main)
 
-set_target_properties(ip_filters ip_filter tests PROPERTIES
+set_target_properties(ip_filter tests PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
-target_include_directories(ip_filters
-    PRIVATE "${CMAKE_BINARY_DIR}"
-)
 
 if (MSVC)
-    add_compile_options(/W4 /WX)
-    else()
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+    target_compile_options(ip_filter PRIVATE
+        /W4
+    )
+    target_compile_options(tests PRIVATE
+        /W4
+    )
+else ()
+    target_compile_options(ip_filter PRIVATE
+        -Wall -Wextra -pedantic -Werror
+    )
+    target_compile_options(tests PRIVATE
+        -Wall -Wextra -pedantic -Werror
+    )
 endif()
 
+install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
