@@ -11,7 +11,9 @@ int main(int argc, char const *argv[]) {
     return EXIT_FAILURE;
   }
   if (argc > 2) {
-    std::cerr << "Error: programm accept only one parametr" << std::endl;
+    std::cerr << "Error: programm accept only one parametr - a file like "
+                 "filename.tsv or filename.txt"
+              << std::endl;
     return EXIT_FAILURE;
   }
   if (argc > 1) {

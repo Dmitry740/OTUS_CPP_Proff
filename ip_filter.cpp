@@ -4,7 +4,6 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <sstream>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -32,77 +31,70 @@ std::vector<std::string> split(const std::string &str, char d) {
   return r;
 }
 
-std::vector<std::string> ReversSort(const std::vector<std::string> &rev) {
-  std::vector<std::string> result;
-  for (auto w = rev.size() - 1; w != -1; --w) {
-    std::cout << rev[w] << std::endl;
-    result.push_back(rev[w]);
-  }
-  return result;
-}
-
-std::vector<std::string> Sort1(const std::vector<std::string> &rev) {
-  std::vector<std::string> result;
-  for (const auto &w : rev) {
-    if (!w.find("1.")) {
-      std::cout << w << std::endl;
-      result.push_back(w);
-    }
-  }
-  return result;
-}
-
-std::vector<std::string> Sort4670(const std::vector<std::string> &rev) {
-  std::vector<std::string> result;
-  for (const auto &w : rev) {
-    if (!w.find("46.70.")) {
-      std::cout << w << std::endl;
-      result.push_back(w);
-    }
-  }
-  return result;
-}
-
-std::vector<std::string> Any46sort(const std::vector<std::string> &rev) {
-  std::vector<std::string> result;
-  for (const auto &w : rev) {
-    if (w.find(".46") != w.npos || w.find(".46.") != w.npos || !w.find("46.")) {
-      std::cout << w << std::endl;
-      result.push_back(w);
-    }
-  }
-  return result;
-}
+// for (auto w = rev.size() - 1; w != -1; --w) {
+//   std::cout << rev[w] << std::endl;
+//   result.push_back(rev[w]);
+// }
+// return result;
 
 using rec = std::tuple<int, int, int, int>;
 
-std::vector<std::string> Sorting(std::vector<rec> ip_list) {
+std::vector<rec> Sorting(std::vector<rec> ip_list) {
   std::sort(ip_list.begin(), ip_list.end(), [](const rec &l, const rec &r) {
     return std::get<3>(l) < std::get<3>(r);
   });
-  std::sort(ip_list.begin(), ip_list.end(), [](const rec &l, const rec &r) {
-    return std::get<2>(l) < std::get<2>(r);
-  });
-  std::sort(ip_list.begin(), ip_list.end(), [](const rec &l, const rec &r) {
-    return std::get<1>(l) < std::get<1>(r);
-  });
-  std::sort(ip_list.begin(), ip_list.end(), [](const rec &l, const rec &r) {
-    return std::get<0>(l) < std::get<0>(r);
-  });
-  std::stringstream ss;
-  std::vector<std::string> rev;
-  for (const auto &t : ip_list) {
-    ss << std::to_string(std::get<0>(t));
-    ss << ".";
-    ss << std::to_string(std::get<1>(t));
-    ss << ".";
-    ss << std::to_string(std::get<2>(t));
-    ss << ".";
-    ss << std::to_string(std::get<3>(t));
-    rev.push_back(ss.str());
-    ss.str("");
+  std::stable_sort(ip_list.begin(), ip_list.end(),
+                   [](const rec &l, const rec &r) {
+                     return std::get<2>(l) < std::get<2>(r);
+                   });
+  std::stable_sort(ip_list.begin(), ip_list.end(),
+                   [](const rec &l, const rec &r) {
+                     return std::get<1>(l) < std::get<1>(r);
+                   });
+  std::stable_sort(ip_list.begin(), ip_list.end(),
+                   [](const rec &l, const rec &r) {
+                     return std::get<0>(l) < std::get<0>(r);
+                   });
+  return ip_list;
+}
+
+void ReversSort(const std::vector<rec> &ip_list) {
+  for (auto ip = ip_list.size() - 1; ip != -1; --ip) {
+    std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
+              << "." << std::get<2>(ip_list[ip]) << "."
+              << std::get<3>(ip_list[ip]) << std::endl;
   }
-  return rev;
+}
+
+void Sort1(const std::vector<rec> &ip_list) {
+  for (auto ip = ip_list.size() - 1; ip != -1; --ip) {
+    if (std::get<0>(ip_list[ip]) == 1) {
+      std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
+                << "." << std::get<2>(ip_list[ip]) << "."
+                << std::get<3>(ip_list[ip]) << std::endl;
+    }
+  }
+}
+
+void Sort4670(const std::vector<rec> &ip_list) {
+  for (auto ip = ip_list.size() - 1; ip != -1; --ip) {
+    if (std::get<0>(ip_list[ip]) == 46 && std::get<1>(ip_list[ip]) == 70) {
+      std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
+                << "." << std::get<2>(ip_list[ip]) << "."
+                << std::get<3>(ip_list[ip]) << std::endl;
+    }
+  }
+}
+
+void Any46sort(const std::vector<rec> &ip_list) {
+  for (auto ip = ip_list.size() - 1; ip != -1; --ip) {
+    if (std::get<0>(ip_list[ip]) == 46 || std::get<1>(ip_list[ip]) == 46 ||
+        std::get<2>(ip_list[ip]) == 46 || std::get<3>(ip_list[ip]) == 46) {
+      std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
+                << "." << std::get<2>(ip_list[ip]) << "."
+                << std::get<3>(ip_list[ip]) << std::endl;
+    }
+  }
 }
 
 void run(std::ifstream &input) {
@@ -117,8 +109,8 @@ void run(std::ifstream &input) {
       }
     }
 
-    ReversSort(Sorting(ip_list));
-    auto sorted = ReversSort(Sorting(ip_list));
+    auto sorted = Sorting(ip_list);
+    ReversSort(sorted);
     Sort1(sorted);
     Sort4670(sorted);
     Any46sort(sorted);
@@ -129,23 +121,18 @@ void run(std::ifstream &input) {
 }
 
 // TODO reverse lexicographically sort
-//   std::vector<std::string> ip_list;
 
-//   for (auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip) {
-//     for (auto ip_part = ip->cbegin(); ip_part != ip->cend();
-//     ++ip_part)
-//     {
-//       if (ip_part != ip->cbegin()) {
-//         ss << ".";
-//       }
-//       //   ss << *ip_part;
+// for (auto ip = ip_pool.cbegin(); ip != ip_pool.cend(); ++ip) {
+//   for (auto ip_part = ip->cbegin(); ip_part != ip->cend();
+//   ++ip_part)
+//   {
+//     if (ip_part != ip->cbegin()) {
+//       std::cout << ".";
 //     }
-//     ss << std::endl;
+//     //   std::cout << *ip_part;
 //   }
-//   //   ip_list.push_back(ss.str());
-//   for (auto q : ip_list) {
-//     std::cout << q << std::endl;
-//   }
+//   std::cout << std::endl;
+// }
 
 // 222.173.235.246
 // 222.130.177.64
