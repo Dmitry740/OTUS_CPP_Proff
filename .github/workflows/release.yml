@@ -3,15 +3,16 @@ name: 'C++ CI'
 on:
   push:
     branches:
-      - 'HW_2'
+      - HW_2
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v2
         with:
           submodules: true
+      - run: sudo apt-get update && sudo apt-get install libboost-test-dev -y
       - run: sudo apt-get update && sudo apt-get install libboost-test-dev libgtest-dev -y
       - run: cmake . -DPATCH_VERSION=${{ github.run_number }}
       - run: cmake --build .
