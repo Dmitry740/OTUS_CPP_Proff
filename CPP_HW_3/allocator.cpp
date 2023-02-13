@@ -23,21 +23,20 @@ struct my_allocator {
       m_memory = reinterpret_cast<T *>(std::malloc(size * sizeof(T)));
       if (!m_memory) throw std::bad_alloc();
       std::cout << size << "---" << m_count << "---" << &m_memory << std::endl;
-      m_count += n;
-
-      return m_memory;
+      return m_memory - sizeof(T) * (size - m_num);
     }
     m_count += n;
     if (m_count > size) {
       throw std::bad_alloc();
     }
+    --m_num;
     std::cout << size << "---" << m_count << "---" << &m_memory << std::endl;
-    return m_memory;
+    return m_memory - sizeof(T) * (size - m_num);
   }
 
   void deallocate(T *, std::size_t) noexcept {
-    std::free(m_memory);
-    m_count = 0;
+    // std::free(m_memory);
+    // m_count = 0;
   }
 
   template <typename U, typename... Args>
@@ -48,23 +47,21 @@ struct my_allocator {
   template <typename U>
   void destroy(U *p) {
     p->~U();
+    std::free(m_memory);
   }
 
  private:
   T *m_memory = nullptr;
   size_t m_count = 0;
+  size_t m_num = 9;
 };
 
 int factorial(int n) {
   int res = 1;
-  if (n == 0) {
-    return res = 1;
-  } else {
-    for (int i = 1; i != n + 1; ++i) {
-      res *= i;
-    }
-    return res;
+  for (int i = 1; i < n + 1; ++i) {
+    res *= i;
   }
+  return res;
 }
 
 int main(int, char *[]) {
