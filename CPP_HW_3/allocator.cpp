@@ -20,24 +20,20 @@ struct my_allocator {
 
   T *allocate(std::size_t n) {
     if (m_memory == nullptr) {
-      m_memory = reinterpret_cast<T *>(std::malloc(size * sizeof(T)));
-      if (!m_memory) throw std::bad_alloc();
-      std::cout << size << "---" << m_count << "---" << &m_memory << std::endl;
-      return m_memory - sizeof(T) * (size - m_num);
+      m_memory = reinterpret_cast<T *>(std::malloc((size + 1) * sizeof(T)));
+      if (!m_memory) {
+        throw std::bad_alloc();
+      }
+      return m_memory;
     }
-    m_count += n;
-    if (m_count > size) {
+    if (m_count >= size) {
       throw std::bad_alloc();
     }
-    --m_num;
-    std::cout << size << "---" << m_count << "---" << &m_memory << std::endl;
-    return m_memory - sizeof(T) * (size - m_num);
+    m_count += n;
+    return m_memory + m_count;
   }
 
-  void deallocate(T *, std::size_t) noexcept {
-    // std::free(m_memory);
-    // m_count = 0;
-  }
+  void deallocate(T *, std::size_t) noexcept {}
 
   template <typename U, typename... Args>
   void construct(U *p, Args &&...args) {
@@ -46,14 +42,13 @@ struct my_allocator {
 
   template <typename U>
   void destroy(U *p) {
-    p->~U();
     std::free(m_memory);
+    p->~U();
   }
 
  private:
   T *m_memory = nullptr;
   size_t m_count = 0;
-  size_t m_num = 9;
 };
 
 int factorial(int n) {
