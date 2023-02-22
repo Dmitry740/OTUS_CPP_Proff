@@ -103,7 +103,7 @@ void run(std::ifstream &input) {
     for (std::string line; std::getline(input, line);) {
       auto v = split(line, '\t');
       auto vt = (split(v.at(0), '.'));
-      for (int z = 0; z != vt.size(); z += 4) {
+      for (size_t z = 0; z != vt.size(); z += 4) {
         ip_list.push_back(std::make_tuple(stoi(vt[z]), stoi(vt[z + 1]),
                                           stoi(vt[z + 2]), stoi(vt[z + 3])));
       }
