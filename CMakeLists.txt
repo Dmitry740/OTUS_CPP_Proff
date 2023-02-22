@@ -27,21 +27,21 @@ set_target_properties(ip_filter tests PROPERTIES
     CXX_STANDARD_REQUIRED ON
 )
 
-if (MSVC)
-    target_compile_options(ip_filter PRIVATE
-        /W4
-    )
-    target_compile_options(tests PRIVATE
-        /W4
-    )
-else ()
-    target_compile_options(ip_filter PRIVATE
-        
-    )
-    target_compile_options(tests PRIVATE
-       
-    )
-endif()
+# if (MSVC)
+#     target_compile_options(ip_filter PRIVATE
+#         /W4
+#     )
+#     target_compile_options(tests PRIVATE
+#         /W4
+#     )
+# else ()
+#     target_compile_options(ip_filter PRIVATE
+#         -Wall -Wextra -Werror
+#     )
+#     target_compile_options(tests PRIVATE
+#         -Wall -Wextra -Werror
+#     )
+# endif()
 
 install(TARGETS ip_filter RUNTIME DESTINATION bin)
 
