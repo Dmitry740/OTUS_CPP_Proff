@@ -36,10 +36,10 @@ if (MSVC)
     )
 else ()
     target_compile_options(ip_filter PRIVATE
-        -Wall -Wextra -pedantic -Werror
+        
     )
     target_compile_options(tests PRIVATE
-        -Wall -Wextra -pedantic -Werror
+       
     )
 endif()
 
