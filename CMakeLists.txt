@@ -11,6 +11,9 @@ set_target_properties(allocator PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
+target_include_directories(allocator
+    PRIVATE "${CMAKE_BINARY_DIR}"
+)
 
 if (MSVC)
     target_compile_options(allocator PRIVATE
