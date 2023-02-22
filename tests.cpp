@@ -13,7 +13,7 @@ TEST(Range, Sorting) {
   std::vector<std::string> sort;
   std::stringstream ss;
 
-  for (auto ip = 0; ip != res.size(); ++ip) {
+  for (size_t ip = 0; ip != res.size(); ++ip) {
     ss << std::get<0>(res[ip]) << "." << std::get<1>(res[ip]) << "."
        << std::get<2>(res[ip]) << "." << std::get<3>(res[ip]);
     sort.push_back(ss.str());
