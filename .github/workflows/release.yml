@@ -3,7 +3,7 @@ name: 'C++ CI'
 on:
   push:
     branches:
-      - ./HW_3/CPP_HW_3
+      - CPP_HW_3
 
 jobs:
   build:
