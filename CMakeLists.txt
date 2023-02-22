@@ -9,7 +9,7 @@ add_executable(ip_filter ip_filter.cpp main.cpp)
 
 add_executable(tests tests.cpp ip_filter.cpp)
 find_package(GTest CONFIG REQUIRED)
-target_link_libraries(tests PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main)
+target_link_libraries(tests PRIVATE GTest::gmock_main GTest::gtest_main)
 
 set_target_properties(ip_filter tests PROPERTIES
     CXX_STANDARD 14
