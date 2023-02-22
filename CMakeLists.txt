@@ -9,7 +9,19 @@ add_executable(ip_filter ip_filter.cpp main.cpp)
 
 add_executable(tests tests.cpp ip_filter.cpp)
 find_package(GTest CONFIG REQUIRED)
-target_link_libraries(tests Private ${GTEST_LIBRARY_DEBUG} ${GTEST_MAIN_LIBRARY_DEBUG})
+# target_link_libraries(tests PRIVATE GTest::gmock_main GTest::gtest_main)
+target_include_directories(
+    tests PRIVATE
+    ${GTEST_INCLUDE_DIRS}
+)
+
+target_link_libraries(
+    tests PRIVATE
+    ${GTEST_BOTH_LIBRARIES}
+)
+
+
+
 set_target_properties(ip_filter tests PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
@@ -24,10 +36,10 @@ if (MSVC)
     )
 else ()
     target_compile_options(ip_filter PRIVATE
-        -Wall -Wextra -pedantic -Werror
+        -Wall -Wextra -Werror
     )
     target_compile_options(tests PRIVATE
-        -Wall -Wextra -pedantic -Werror
+        -Wall -Wextra -Werror
     )
 endif()
 
