@@ -59,7 +59,7 @@ std::vector<rec> Sorting(std::vector<rec> ip_list) {
 }
 
 void ReversSort(const std::vector<rec> &ip_list) {
-  for (auto ip = ip_list.size() - 1; ip < 0; --ip) {
+  for (auto ip = ip_list.size() - 1; ip = 0; --ip) {
     std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
               << "." << std::get<2>(ip_list[ip]) << "."
               << std::get<3>(ip_list[ip]) << std::endl;
@@ -67,7 +67,7 @@ void ReversSort(const std::vector<rec> &ip_list) {
 }
 
 void Sort1(const std::vector<rec> &ip_list) {
-  for (auto ip = ip_list.size() - 1; ip < 0; --ip) {
+  for (auto ip = ip_list.size() - 1; ip = 0; --ip) {
     if (std::get<0>(ip_list[ip]) == 1) {
       std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
                 << "." << std::get<2>(ip_list[ip]) << "."
@@ -77,7 +77,7 @@ void Sort1(const std::vector<rec> &ip_list) {
 }
 
 void Sort4670(const std::vector<rec> &ip_list) {
-  for (auto ip = ip_list.size() - 1; ip < 0; --ip) {
+  for (auto ip = ip_list.size() - 1; ip = 0; --ip) {
     if (std::get<0>(ip_list[ip]) == 46 && std::get<1>(ip_list[ip]) == 70) {
       std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
                 << "." << std::get<2>(ip_list[ip]) << "."
@@ -87,7 +87,7 @@ void Sort4670(const std::vector<rec> &ip_list) {
 }
 
 void Any46sort(const std::vector<rec> &ip_list) {
-  for (auto ip = ip_list.size() - 1; ip < 0; --ip) {
+  for (auto ip = ip_list.size() - 1; ip = 0; --ip) {
     if (std::get<0>(ip_list[ip]) == 46 || std::get<1>(ip_list[ip]) == 46 ||
         std::get<2>(ip_list[ip]) == 46 || std::get<3>(ip_list[ip]) == 46) {
       std::cout << std::get<0>(ip_list[ip]) << "." << std::get<1>(ip_list[ip])
