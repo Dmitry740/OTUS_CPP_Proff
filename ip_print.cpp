@@ -144,14 +144,13 @@ template <typename T>
 void print_ip(T& container,
               typename std::enable_if<is_vector<T>::value>::type* = {}) {
   size_t n = 0;
-  for
-    size_t(const auto& i : container) {
-      std::cout << i;
-      ++n;
-      if (n != container.size()) {
-        std::cout << ".";
-      }
+  for (const auto& i : container) {
+    std::cout << i;
+    ++n;
+    if (n != container.size()) {
+      std::cout << ".";
     }
+  }
   std::cout << std::endl;
 }
 
