@@ -41,7 +41,7 @@ void print_ip(
     typename std::enable_if<std::is_same<T, int16_t>::value>::type* = {}) {
   std::string first_8, second_8;
   auto to_str = std::bitset<16>(data).to_string();
-  for (auto i = 0; i != to_str.size(); ++i) {
+  for (size_t i = 0; i != to_str.size(); ++i) {
     if (i < 8) {
       first_8 += to_str[i];
     }
@@ -62,7 +62,7 @@ void print_ip(
   std::string first_8, second_8, third_8, thouth_8;
 
   auto to_str = std::bitset<32>(data).to_string();
-  for (auto i = 0; i != to_str.size(); ++i) {
+  for (size_t i = 0; i != to_str.size(); ++i) {
     if (i < 8) {
       first_8 += to_str[i];
     }
@@ -93,7 +93,7 @@ void print_ip(
       eight_8;
 
   auto to_str = std::bitset<64>(data).to_string();
-  for (auto i = 0; i != to_str.size(); ++i) {
+  for (size_t i = 0; i != to_str.size(); ++i) {
     if (i < 8) {
       first_8 += to_str[i];
     }
