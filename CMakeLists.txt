@@ -3,29 +3,26 @@ cmake_minimum_required(VERSION 3.10)
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
-project(allocator VERSION ${PROJECT_VESRION})
+project(ip_print VERSION ${PROJECT_VESRION})
 
-add_executable(allocator allocator.cpp)
+add_executable(ip_print ip_print.cpp)
 
-set_target_properties(allocator PROPERTIES
+set_target_properties(ip_print PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
-target_include_directories(allocator
-    PRIVATE "${CMAKE_BINARY_DIR}"
-)
 
 if (MSVC)
-    target_compile_options(allocator PRIVATE
+    target_compile_options(ip_print PRIVATE
         /W4
     )
 else ()
-    target_compile_options(allocator PRIVATE
+    target_compile_options(ip_print PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
 endif()
 
-install(TARGETS allocator RUNTIME DESTINATION bin)
+install(TARGETS ip_print RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
