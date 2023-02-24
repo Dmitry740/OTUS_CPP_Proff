@@ -15,4 +15,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: HW_4
           folder: docs/html
-          config_file: README
+          config_file: README.md
