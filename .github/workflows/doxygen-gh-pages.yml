@@ -15,4 +15,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: HW_4
           folder: OTUS_CPP_Proff
-          config_file: README.md
+          config_file: touch docs/html/.nojekyll
