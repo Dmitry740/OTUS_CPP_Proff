@@ -13,7 +13,7 @@ struct my_allocator {
   };
 
   my_allocator() = default;
-  ~my_allocator() = default;
+  ~my_allocator() { std::free(m_memory); }
 
   template <typename U>
   my_allocator(const my_allocator<U, size> &) {}
@@ -24,13 +24,13 @@ struct my_allocator {
       if (!m_memory) {
         throw std::bad_alloc();
       }
-      return m_memory;
     }
-    if (m_count >= size) {
+    if (size - m_count < n) {
       throw std::bad_alloc();
     }
+    T *result = m_memory + m_count;
     m_count += n;
-    return m_memory + m_count;
+    return result;
   }
 
   void deallocate(T *, std::size_t) noexcept {}
@@ -42,7 +42,6 @@ struct my_allocator {
 
   template <typename U>
   void destroy(U *p) {
-    std::free(m_memory);
     p->~U();
   }
 
