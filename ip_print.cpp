@@ -35,7 +35,7 @@ void print_ip(T& data,
                   !std::is_same<T, char>::value>::type* = {}) {
   auto to_unchar = reinterpret_cast<unsigned char*>(&data);
   auto n = 0;
-  for (auto i = sizeof(to_unchar) - 1; i != -1; --i) {
+  for (int i = sizeof(to_unchar) - 1; i != -1; --i) {
     ++n;
     if (std::bitset<8>(to_unchar[i]).to_ullong() != 204) {
       std::cout << std::dec << std::bitset<8>(to_unchar[i]).to_ullong();
@@ -58,7 +58,7 @@ template <typename T>
 void print_ip(const T& container,
               typename std::enable_if<is_vector<T>::value ||
                                       is_list<T>::value>::type* = {}) {
-  auto n = 0;
+  long long unsigned n = 0;
   for (const auto& i : container) {
     std::cout << i;
     ++n;
