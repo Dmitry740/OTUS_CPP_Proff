@@ -4,6 +4,42 @@
 #include <map>
 #include <string>
 
+class Primitive {
+ public:
+  Primitive() {}
+  virtual ~Primitive() {}
+  virtual void create_prim() = 0;
+  virtual void delete_prim() = 0;
+};
+
+class Dot : public Primitive {
+ public:
+  Dot() {}
+  ~Dot() {}
+
+  virtual void create_prim() override {
+    std::cout << "dot created" << std::endl;
+  }
+
+  virtual void delete_prim() override {
+    std::cout << "dot deleted" << std::endl;
+  }
+};
+
+class Line : public Primitive {
+ public:
+  Line() {}
+  ~Line() {}
+
+  virtual void create_prim() override {
+    std::cout << "line created" << std::endl;
+  }
+
+  virtual void delete_prim() override {
+    std::cout << "line deleted" << std::endl;
+  }
+};
+
 class Editor {
  public:
   Editor() {}
@@ -107,8 +143,12 @@ class Controller {
   void view_file_res() { m_view->operations(m_file->get_data()); }
   void view_obj_res() { m_view->operations(m_document->get_data()); }
 
+  Dot dot;
+  Line line;
+
  private:
   std::unique_ptr<View> m_view = std::make_unique<View>();
   std::unique_ptr<File> m_file = std::make_unique<File>();
   std::unique_ptr<Document> m_document = std::make_unique<Document>();
+  // std::unique_ptr<Dot> m_dot = std::make_unique<Dot>();
 };

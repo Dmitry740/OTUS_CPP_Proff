@@ -41,5 +41,12 @@ int main() {
   std::cout << "object opertions #2" << std::endl;
   controll.view_obj_res();
 
+  std::cout << "primitive opertions #1" << std::endl;
+  controll.dot.create_prim();
+  controll.line.create_prim();
+
+  controll.line.delete_prim();
+  controll.dot.delete_prim();
+
   return 0;
 }
